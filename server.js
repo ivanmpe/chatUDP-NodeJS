@@ -1,23 +1,41 @@
 const dgram = require('dgram');
+const fs = require('fs');
+
 const server = dgram.createSocket('udp4');
+server.bind({
+  address: 'localhost',
+  port: 5100
+});
 
 
-//inicia o servidor
+
+server.on('listening', () => {
+  console.log(`server escutando ${server.address().address}: ${server.address().port}`);
+});
+
+server.on('message', (msg, rinfo) => {
+  console.log(`${rinfo.family} - ${rinfo.address}:${rinfo.port} > ${msg}`);
+  var mensagem = " " + rinfo.family + "-" +  rinfo.address + ":" + rinfo.port +  ">"  + msg;
+  escreveArquivo(mensagem);
+});
+
+
+server.on('close', ()=>{
+	console.log('socket fechado');
+})
+
 server.on('error', (err) => {
   console.log(`server error:\n${err.stack}`);
   server.close();
 });
 
 
-// aprensenta a(s) mensagem(ns) recebida(s)
-server.on('message', (msg, rinfo) => {
-  console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
-});
+function escreveArquivo(msg){
 
-//fica verficando caso haja mensagem
-server.on('listening', () => {
-  const address = server.address();
-  console.log(`server listening ${address.address}:${address.port}`);
-});
+	const CreateFiles = fs.createWriteStream('./historico.txt', {
+      flags: 'a' 
+	})
 
-server.bind(5100);
+	CreateFiles.write( msg +'\r\n') //'\r\n at the end of each value
+	
+}
