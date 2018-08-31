@@ -6,6 +6,8 @@ server = {
 };
 
 
+
+
 var client = dgram.createSocket('udp4', function(message, rinfo) {
 	
 	console.log('%s', message.toString());
@@ -18,6 +20,7 @@ var client = dgram.createSocket('udp4', function(message, rinfo) {
 
 });
 
+client.bind();
 
 function Command() {
 
@@ -31,12 +34,12 @@ function Command() {
 }
 
 
-client.bind();
+
 
 client.on('listening', function() {
-	var buffer = Buffer.from(`Novo cliente conectado na porta ${client.address().port}`);
-	console.log('Você esta conectado na porta %d.', client.address().port);
+	var buffer = Buffer.from(`Novo cliente conectado no socket ${client.address().port}`);
 	client.send(buffer, 0, buffer.length, server.port, server.host);
+	console.log('Você esta conectado no socket %d.', client.address().port);
 });
 
 client.on('error', function(err) {
@@ -44,9 +47,10 @@ client.on('error', function(err) {
 });
 
 client.on('close', function() {
-	var buffer = Buffer.from('{"type":"disconnect"}');
-	console.log('Cliente disconectado.', client.address().port);
+	var buffer = Buffer.from('Cliente foi desconectado. ');
 	client.send(buffer, 0, buffer.length, server.port, server.host);
+	console.log('Cliente disconectado.', client.address().port);
+
 })
 
 process.stdin.resume();

@@ -1,0 +1,12 @@
+ IPv4-127.0.0.1:53256>Novo cliente conectado na porta 53256
+ IPv4-127.0.0.1:8000>Novo cliente conectado na porta 8000
+ IPv4-127.0.0.1:5100>Novo cliente conectado na porta 5100
+ IPv4-127.0.0.1:5100>oi
+ IPv4-127.0.0.1:5100>blz?
+ IPv4-127.0.0.1:5100>Novo cliente conectado na porta 5100
+ IPv4-127.0.0.1:5100>oi
+ IPv4-127.0.0.1:5100>blz
+ IPv4-127.0.0.1:55686>Novo cliente conectado na porta 55686
+ IPv4-127.0.0.1:54676>Novo cliente conectado na porta 54676
+ IPv4-127.0.0.1:57715>Novo cliente conectado no socket 57715
+ IPv4-127.0.0.1:57715>oi
